@@ -1,11 +1,12 @@
 import pyautogui
-import pytesseract
+import cv2
+import numpy as np
 
-# Take a screenshot of the entire screen
-screenshot = pyautogui.screenshot(region=(700, 980, 250, 40))
+roi =  (160, 50, 95, 30) # (left, top, width, height)
 
-# Use pytesseract to perform OCR on the screenshot
-text = pytesseract.image_to_string(screenshot)
+img_pil = pyautogui.screenshot(region=roi)
+img = cv2.cvtColor(np.array(img_pil), cv2.COLOR_RGB2BGR)
 
-# Print the resulting text
-print(text)
+cv2.imshow("ROI Preview", img)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
